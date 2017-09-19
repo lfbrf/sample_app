@@ -1,3 +1,5 @@
+Link to heroku:  
+  https://sample-app-luiz-felipe.herokuapp.com/
 # Ruby on Rails Tutorial sample application
 
 This is the sample application for
