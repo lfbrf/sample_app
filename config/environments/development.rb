@@ -7,8 +7,8 @@ Rails.application.configure do
   
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :test
-  host = 'localhost:3000'                     # Local server
-  config.action_mailer.default_url_options = { host: host, protocol: 'http' }
+  host = 'sample-app-luiz-felipe.herokuapp.com'                     # Local server
+  config.action_mailer.default_url_options = { host: host, protocol: 'https' }
 
 
 config.cache_classes = false
