@@ -13,7 +13,10 @@ class User < ApplicationRecord
     update_columns(activated: true, activated_at: Time.zone.now)
   end
 
-
+ # Activates an account.
+  def activate
+    update_columns(activated: true, activated_at: Time.zone.now)
+  end
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
   end
@@ -21,12 +24,10 @@ class User < ApplicationRecord
   def send_activation_email
     UserMailer.account_activation(self).deliver_now
   end
-
    # Sets the password reset attributes.
   def create_reset_digest
     self.reset_token = User.new_token
-    update_attribute(:reset_digest,  User.digest(reset_token))
-    update_attribute(:reset_sent_at, Time.zone.now)
+    update_columns(reset_digest:  FILL_IN, reset_sent_at: FILL_IN)
   end
 
   # Sends password reset email.
@@ -34,15 +35,25 @@ class User < ApplicationRecord
     UserMailer.password_reset(self).deliver_now
   end
 
+  private
 
-  def downcase_email
-    email.downcase! 
-  end
+    # Converts email to all lower-case.
+    def downcase_email
+      self.email = email.downcase
+    end
+
     # Creates and assigns the activation token and digest.
     def create_activation_digest
       self.activation_token  = User.new_token
       self.activation_digest = User.digest(activation_token)
     end
+   # Sets the password reset attributes.
+
+  # Sends password reset email.
+
+
+    # Creates and assigns the activation token and digest.
+
 
   # Returns the hash digest of the given string.
   def User.digest(string)
